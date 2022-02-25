@@ -1833,34 +1833,16 @@ case 'downloadmenu':
 case 'donwloadmenu':
 stamtus =`❏ 「 \`\`\`DOWNLOAD MENU\`\`\` 」
 ────────────────────
-🐶 ${prefix}herolist
-🐶 ${prefix}herodetail [ hero ]
+
 🐶 ${prefix}google [ search ]
 🐶 ${prefix}gimage [ search ]
-🐶 ${prefix}wiki [ search ] _indo_
-🐶 ${prefix}mediafire [ link ]
 🐶 ${prefix}facebook [ fb link ]
 🐶 ${prefix}facebook2 [ fb link ]
-🐶 ${prefix}twitter [ twitter video link ]
-🐶 ${prefix}twmp3 [ twitter video link ]
-🐶 ${prefix}twitter2 [ twitter video link ]
-🐶 ${prefix}ytmp4 [ yt link ]
-🐶 ${prefix}ytmp3 [ yt link ]
 🐶 ${prefix}play [ song title ]
 🐶 ${prefix}tiktok [ link ]
 🐶 ${prefix}video [ video title ]
-🐶 ${prefix}tinyurl [ link ]
-🐶 ${prefix}fetch [ link ]
 🐶 ${prefix}instagram [insta normal video link ] 
 🐶 ${prefix}pinterest [ search ]
-🐶 ${prefix}lyrics [ title ]
-🐶 ${prefix}tourl [ reply image/video ]
-🐶 ${prefix}numbers [ number ]
-🐶 ${prefix}calculator [ number ]
-🐶 ${prefix}fancytext [text]
-🐶 ${prefix}githubstalk [ username ]
-🐶 ${prefix}translate [ code text ]
-🐶 ${prefix}ss [ link ]
 ────────────────────`
 buttons = [
 {buttonId:`sc`,buttonText:{displayText: 'BOT SCRIPT'},type:1},
@@ -2978,28 +2960,6 @@ fto = fs.readFileSync('./thumb.jpg')
 sendMediaURL(from, Anu, 'Done!')
 })
 break
-case 'twmp3':
-		if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-if (args.length < 1) return reply('Link?')
-lin = args[0]
-sticWait(from)
-hx.twitter(lin).then(async (res) => {
-console.log('[ TWITTER ] downloader')
-Anu = res.SD
-khs = await getBuffer(Anu)
-alpha.sendMessage(from, khs, audio, {mimetype:'audio/mp4', filename:'audio.mp3', quoted:mek, ptt:true})
-})
-break
-      case "twitter2":
-      if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-        if (!isUrl(args[0]) && !args[0].includes("twitter.com"))
-          return reply(mess.Iv);
-        if (!q) return fakegroup("The link?");
-        ten = args[0];
-        var res = await hx.twitter(`${ten}`);
-        ren = `${g.HD}`;
-        sendMediaURL(from, ren, "DONE");
-        break;
     case 'chara':
 		if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
             if(!c) return reply(`gambar apa?\n${prefix}chara nino`)
@@ -3165,7 +3125,7 @@ let ini_list = []
 for (let i of ownerNumber) {
 const vname = alpha.contacts[i] != undefined ? alpha.contacts[i].vname || alpha.contacts[i].notify : undefined
 ini_list.push({
-"displayName": `Doge Bot Developer`,
+"displayName": `One`,
 "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;${NamaOwner};;;\nFN:${vname ? `${vname}` : `${NamaOwner}`}\nitem1.TEL;waid=${NomorOwner}:${NomorOwner2}\nitem1.X-ABLabel:Owner\nEND:VCARD`
 })
 }
@@ -3700,74 +3660,6 @@ kant += `*Title* : ${i.title}
 var akhir = kant.trim()
 reply(akhir)
 break
-case 'wiki':
-if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-if (args.length < 1) return reply(' What Are You Looking For?? ')
-teks = args.join(' ')
-res = await wikiSearch(teks).catch(e => {
-return reply('_[ ! ] Error Result Not Found_') 
-}) 
-result = `*Title :* ${res[0].judul}
-*Wiki :* ${res[0].wiki}`
-sendFileFromUrl(res[0].thumb, image, {quoted: mek, caption: result}).catch(e => {
-  reply(result)
-})
-break
-case 'mediafire':
-if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-if (args.length < 1) return reply('Where is the link? ')
-if(!isUrl(args[0]) && !args[0].includes('mediafire')) return reply(mess.error.api)
-if (Number(filesize) >= 30000) return reply(`*「 MEDIAFIRE DOWNLOAD 」*
-
-*🐶 Name :* ${res[0].nama}
-*🐶 Size :* ${res[0].size}
-*🐶 Link :* ${res[0].link}
-
-_Sorry the size exceeds the maximum limit, please click the link above_`)
-sticWait(from)
-teks = args.join(' ')
-res = await mediafireDl(teks)
-result = `*「 DOWNLOAD MEDIAFIRE 」*
-
-*Data Successfully Obtained!*
-\`\`\`🐶 Name : ${res[0].nama}\`\`\`
-\`\`\`🐶 Size : ${res[0].size}\`\`\`
-\`\`\`🐶 Link : ${res[0].link}\`\`\`
-
-_The file is being sent, Please wait a few minutes_`
-reply(result)
-sendFileFromUrl(res[0].link, document, {mimetype: res[0].mime, filename: res[0].nama, quoted: mek})
-break
-				case 'calculator':
-if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-				 var mtk = body.slice(12)
-				 teks = `${mtk} = ${Math_js.evaluate(mtk)}`
-				 reply(teks)
-				 break
-				case 'translate':
-				case 'ts':
-if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-					try{
-					if ( args.length === 1 ){
-						tekss = mek.message.extendedTextMessage.contextInfo.quotedMessage.conversation
-						translate(tekss, {client: 'gtx', to:args[0]})
-						.then((res) =>{
-							reply(res.text)
-							}) 
-						} else
-			if(args.length > 0 ) {
-				ngab = args.join(' ')
-			teks = ngab.split(' ')[0];
-			bhs = ngab.split(' ')[1];
-			  translate(teks, {client: 'gtx', to:bhs})
-			  .then((res) =>{
-				  reply(res.text)
-				  })
-				}
-			} catch (e){
-				reply(mess.error.api)
-			}
-				  break
 		case 'dream':
 if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
 				if (args.length < 1) return reply('The text?')
@@ -3804,36 +3696,13 @@ break
 				anu = await fetchJson(`https://bx-hunter.herokuapp.com/api/bilangangka?angka=${teks}&apikey=${HunterApi}`, {method: 'get'})
 				kata = anu.result
 				reply(kata)
-				break 
-					case 'githubstalk':
-              if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-					if (args.length < 1) return reply('Username?')
-					var teks = body.slice(13)
-					anu = await fetchJson(`https://bx-hunter.herokuapp.com/api/stalk/github?user=${teks}&apikey=${HunterApi}`, {method: 'get'})
-					gstalk = `❏ *GITHUB STALK*\n\n❏ Name : ${anu.result.name}\n❏ Followers : ${anu.result.followers}\n❏ Following : ${anu.result.following}\n❏ Id : ${anu.result.id}\n❏ Node Id : ${anu.result.node_id}\n❏ Type : ${anu.result.type}\n❏ Company : ${anu.result.company}\n❏ Location : ${anu.result.location}\n❏ Bio : ${anu.result.bio}\n❏ Site Admin : ${anu.result.site_admin}\n❏ Email : ${anu.result.email}\n❏ Created At : ${anu.result.created_at}\n❏ Updated At : ${anu.result.updated_at}\n❏ Twitter Username : ${anu.result.twitter_username}\n❏ Blog : ${anu.result.blog}\n❏ Avatar Url : ${anu.result.avatar_url}\n❏ Gravatar Id : ${anu.result.gravatar_id}\n❏ Html Url : ${anu.result.html_url}`
-					sticWait(from)
-					buff = await getBuffer(anu.result.avatar_url)
-					alpha.sendMessage(from, buff, image, {quoted: ftok, caption: gstalk})
-					break  
+				break   
 				case 'dice':
               if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
 			random = Math.floor(Math.random() * 6) + 1
 		damdu = fs.readFileSync(`./sticker/${random}.webp`)
 			alpha.sendMessage(from, damdu, sticker, {quoted: ftex})
 			break
-				case 'robot':
-              if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-encmedial = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-medial = await alpha.downloadAndSaveMediaMessage(encmedial)
-ran = getRandom('.mp3')
-exec(`ffmpeg -i ${medial} -filter_complex "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=512:overlap=0.75" ${ran}`, (err, stderr, stdout) => {
-fs.unlinkSync(medial)
-if (err) return reply(mess.error.api)
-hah = fs.readFileSync(ran)
-alpha.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', duration: 359996400, ptt:true, quoted: mek})
-fs.unlinkSync(ran)
-})
-break
 case 'fat':
               if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
 					encmediaz = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
@@ -4235,17 +4104,6 @@ break
 						reply(`Successfully closing the group ${groupName}`)
 						alpha.groupSettingChange(from, GroupSettingChange.messageSend, true)
 					break
-				case 'spam':
-				if (!isOwner && !mek.key.fromMe) return sticOwner(from)
-					if (!arg) return reply(`Use ${prefix}spam text|amount`)
-				argzi = arg.split("|")
-				if (!argzi) return reply(`Use ${prefix}spam text|amount`)
-				if (Number(argzi[1]) >= 50) return reply('Max 50!')
-				if (isNaN(argzi[1])) return reply(`must be a number`)
-				for (let i = 0; i < argzi[1]; i++){
-					alpha.sendMessage(from, argzi[0], MessageType.text)
-				}
-				break
 				case 'demoteall':
 		if (!isOwner && !mek.key.fromMe) return sticOwner(from)
 		if (!isGroup) return reply(mess.only.group)
@@ -4299,59 +4157,7 @@ break
 				if (!isOwner && !mek.key.fromMe) return sticOwner(from)
 				alpha.updatePresence(from, Presence.composing)
 				alpha.groupLeave(from)
-						break
-				case 'bc':
-					alpha.updatePresence(from, Presence.composing)
-					if (!isOwner && !mek.key.fromMe) return sticOwner(from)
-					if (args.length < 1) return reply('The text?')
-					anu = await alpha.chats.all()
-					if (isMedia && !mek.message.videoMessage || isQuotedImage) {
-						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-						buff = await alpha.downloadMediaMessage(encmedia)
-						for (let _ of anu) {
-							alpha.sendMessage(_.jid, buff, image, { viewOnce:true, caption: `${body.slice(4)}`})
-						}
-						reply(`Broadcast success ${body.slice(4)}`)
-						} else if (isMedia && !mek.message.videoMessage || isQuotedVideo) {
-						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-						buff = await alpha.downloadMediaMessage(encmedia)
-						for (let _ of anu) {
-							alpha.sendMessage(_.jid, buff, video, { viewOnce:true, caption: `${body.slice(4)}`})
-						}
-						reply(`Broadcast success ${body.slice(4)}`)
-						} else if (isMedia && !mek.message.videoMessage || isQuotedVideo) {
-						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-						buff = await alpha.downloadMediaMessage(encmedia)
-						for (let _ of anu) {
-							alpha.sendMessage(_.jid, buff, video, { mimetype: Mimetype.gif, quoted: finv, contextInfo: { forwardingScore: 508, isForwarded: true}, caption: `${body.slice(4)}` })
-						}
-						reply(`Broadcast success ${body.slice(4)}`)
-					} else {
-						for (let _ of anu) {
-							//sendMess(_.jid, `${body.slice(4)}`)
-buttons = [{buttonId: `menu`, buttonText: {displayText: '🐶MENU🐶'}, type: 1},{buttonId: `owner`, buttonText: {displayText: '👤OWNER👤'}, type: 1}]
-const btnbc = {
-    contentText: `${body.slice(4)}`,
-    footerText: '*_Doge Bot BROADCAST_*',
-    buttons: buttons,
-    headerType: 1
-}
-await alpha.sendMessage(_.jid, btnbc, MessageType.buttonsMessage, {quoted: ftex})
-						}
-						reply(`Successful sending Broadcast:\n${body.slice(4)}`)
-					}
-					break
-					case 'spamsw':
-if (!isOwner && !mek.key.fromMe) return sticOwner(from)
-if (!arg) return reply(`Use ${prefix}spamsw text|amount`)
-				argzi = arg.split("|")
-				if (!argzi) return reply(`Use ${prefix}spam text|amount`)
-				if (Number(argzi[1]) >= 50) return reply('Kebanyakan!')
-				if (isNaN(argzi[1])) return reply(`harus berupa angka`)
-				for (let i = 0; i < argzi[1]; i++){
-					alpha.sendMessage('status@broadcast', argzi[0], MessageType.text)
-                    }
-                    break	
+						break	
 				case 'upswtext':
 if (!isOwner && !mek.key.fromMe) return sticOwner(from)
 if (args.length < 1) return reply('The text?')
@@ -5159,35 +4965,6 @@ alpha.sendMessage(from, 'okay okay',text, {
  }
 })
 break
-              case "ytmp4":
-        if (args.length === 0)
-          return reply(`Send orders *${prefix}ytmp4 [linkYt]*`);
-        let isLinks2 = args[0].match(
-          /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
-        );
-        if (!isLinks2) return reply(mess.error.Iv);
-        try {
-          reply(mess.wait);
-          ytv(args[0]).then((res) => {
-            const { dl_link, thumb, title, filesizeF, filesize } = res;
-            axios
-              .get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-              .then((a) => {
-                if (Number(filesize) >= 9999999)
-                  return sendMediaURL(
-                    from,
-                    thumb,
-                    `*YTMP 4!*\n\n*Title* : ${title}\n*Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_For the duration of more than the limit is presented in the link_`
-                  );
-                const captionsYtmp4 = `*Data Successfully Obtained!*\n\n*Title* : ${title}\n*Ext* : MP4\n*Size* : ${filesizeF}\n\n_Please wait for the media file to be sent it may take a few minutes_`;
-                sendMediaURL(from, thumb, captionsYtmp4);
-                sendMediaURL(from, dl_link).catch(() => reply(mess.error.api));
-              });
-          });
-        } catch (err) {
-          reply(mess.error.api);
-        }
-        break;
 						      case "play":
 						if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
         if (args.length === 0)
@@ -5263,26 +5040,6 @@ ytmp4 => Video`, contextInfo: { forwardingScore: 508, isForwarded: true, externa
                 reply(`Error: ${e.message}`)
             }
             break
-					case 'ytmp3':
-              if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
-						if (args.length === 0) return reply(`Send orders *${prefix}ytmp3 [linkYt]*`)
-						let isLinks = args[0].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
-						if (!isLinks) return reply(mess.error.Iv)
-						try {
-							sticWait(from)
-							yta(args[0])
-							.then((res) => {
-								const { dl_link, thumb, title, filesizeF, filesize } = res
-								axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-								.then((a) => {
-								if (Number(filesize) >= 30000) return sendMediaURL(from, thumb, `❏ *YTmp3*\n\n❏ *Title* : ${title}\n❏ *Ext* : MP3\n*Filesize* : ${filesizeF}\n*Link* : ${a.data}\n\n_Sorry, the duration exceeds the maximum limit, please click the link above_`)
-								sendFileFromUrl(dl_link, document, {mimetype: 'audio/mp3', filename: `${title}.mp3`, quoted: mek, contextInfo: { forwardingScore: 508, isForwarded: true, externalAdReply:{title:title,body:"🐶 YTMP3",mediaType:"2",thumbnail:getBuffer(thumb),mediaUrl:`${body.slice(7)}`}}}).catch(() => reply(mess.error.api))
-							})
-					        })
-						} catch (err) {
-							reply(mess.error.api)
-						}
-						break
                             case 'video2':
               if (!isRegistered) return sendButRegis(from, daftar1, daftar2, daftar3, { quoted: mek})
                             if (args.length === 0) return reply(`Send orders *${prefix}video* _The title of the video to be searched_`)
